@@ -10,7 +10,7 @@ function ProfileSideBar(propriedades) {
       <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
       <hr />
       <p>
-        <a className="boxLink" href={`https://github.com/${propriedades.githubUser}/`}>
+        <a target="_blank" className="boxLink" href={`https://github.com/${propriedades.githubUser}/`}>
           @{propriedades.githubUser}
         </a>
       </p>
@@ -87,7 +87,7 @@ export default function Home() {
               {pessoasFavoritas.map((pessoa) => {
                 return (
                   <li>
-                    <a href={`/users/${pessoa}`} key={pessoa}>
+                    <a target="_blank" href={`https://github.com/${pessoa}/`} key={pessoa}>
                       <img src={`https://github.com/${pessoa}.png`} />
                       <span>{pessoa}</span>
                     </a>
@@ -104,7 +104,7 @@ export default function Home() {
               {comunidades.map((comunidade) => {
                 return (
                   <li>
-                    <a href={`/users/${comunidade.title}`} key={comunidade.id}>
+                    <a target="_blank" href={`/users/${comunidade.title}`} key={comunidade.id}>
                       <img src={comunidade.image} />
                       <span>{comunidade.title}</span>
                     </a>
