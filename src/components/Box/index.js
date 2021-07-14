@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Box = styled.div`
-  background: #fff;
+  background: #bbbbbb;
   border-radius:8px;
   padding: 16px;
   margin-bottom: 10px;
@@ -41,7 +41,7 @@ const Box = styled.div`
 
   input {
     width: 100%;
-    background-color: #F4F4F4;
+    background-color: #baa8bc;
     color: #333;
     border: 0;
     padding: 14px 16px;
@@ -58,7 +58,7 @@ const Box = styled.div`
     padding: 8px 12px;
     color: #FFF;
     border-radius: 10000px;
-    background-color: #6F92BB;
+    background-color: #8766c4;
   }
 `;
 
