@@ -5,6 +5,8 @@ import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet 
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 
 function ProfileSideBar(propriedades) {
+
+
   return (
     <Box as="aside">
       <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
@@ -27,61 +29,25 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.items.length})
             </h2>
       <ul>
-        {/*seguidores.map((seguidor) => {
-                return (
-                  <li>
-                    <a target="_blank" href={`https://github.com/${seguidor}/`} key={seguidor}>
-                      <img src={`https://github.com/${seguidor}.png`} />
-                      <span>{seguidor}</span>
-                    </a>
-                  </li>
-                )
-              })*/}
+        {propriedades.items.map((seguidor) => {
+          return (
+            < li >
+              <a target="_blank" href={`https://github.com/${seguidor.login}/`} key={seguidor.id}>
+                <img src={`https://github.com/${seguidor.login}.png`} />
+                <span>{seguidor.login}</span>
+              </a>
+            </li>
+          )
+        })}
       </ul>
-    </ProfileRelationsBoxWrapper>
+    </ProfileRelationsBoxWrapper >
   )
 }
 
 export default function Home() {
   const githubUser = 'samlatavares';
   const pessoasFavoritas = ['yanpitangui', 'danyAmaral', 'jorgesoprani', 'juunegreiros', 'peas', 'omariosouto'];
-  const [comunidades, setComunidades] = React.useState([
-    {
-      id: '01011111',
-      title: 'Eu odeio acordar cedo',
-      image: 'https://live.staticflickr.com/7226/6857485718_3a41e5dc0b_n.jpg',
-      content: 'https://relogioonline.com.br/'
-    },
-    {
-      id: '01011112',
-      title: 'Eu abro a porta da geladeira pra pensar',
-      image: 'https://www.digasimpravoce.com.br/wp-content/uploads/2019/11/abro_geladeria.jpg',
-      content: 'https://www.youtube.com/channel/UC92stP3p40WmY-6-8X14zbQ'
-    },
-    {
-      id: '01011113',
-      title: 'Language Learners',
-      image: 'https://blog.nus.edu.sg/nuslearn/files/2017/06/tips-for-learning-a-foreign-language2-1wy3zcm.jpg',
-      content: 'https://www.duolingo.com/profile/samAzevedoT'
-    },
-    {
-      id: '01011114',
-      title: 'Eu quero aprender a desenhar',
-      image: 'https://tudosobrecontroleneural.files.wordpress.com/2018/12/desenho.jpg?w=800',
-      content: 'https://www.youtube.com/channel/UCIKW-7g2ShkauMUwp3jf5yA'
-    },
-    {
-      id: '01011115',
-      title: 'Bora viajar?',
-      image: 'https://cdn.blog.vindi.com.br/wp-content/uploads/2019/08/agencia-de-viagem.jpg',
-      content: 'https://forbes.com.br/forbeslife/2021/05/os-melhores-destinos-para-viajar-pos-covid/'
-    },
-    {
-      id: '01011116',
-      title: 'Eu amo música!',
-      image: 'https://3.bp.blogspot.com/-xWDa9vsdlNY/W_2iSefcazI/AAAAAAAAAC8/FSfyHECAxfYS4HtkvqL63eSFASNCqmYbgCKgBGAs/s1600/Screenshot_20181101-203818%257E2.png',
-      content: 'https://open.spotify.com/playlist/4WjK2DTykQurJIBUq35Kfe?si=7980822c32434c80'
-    }]);
+  const [comunidades, setComunidades] = React.useState([]);
 
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function () {
@@ -90,7 +56,32 @@ export default function Home() {
         return respostaServidor.json();
       })
       .then((respostaCompleta) => {
-        return respostaCompleta;
+        setSeguidores(respostaCompleta);
+      })
+
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '390442f9b1a16646b9ae98ad29d038',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        "query": `query {
+        allCommunities {
+          id 
+          title
+          imageUrl
+          contentUrl
+          creatorSlug
+        }
+      }` })
+    })
+      .then((response) => response.json())
+      .then((respostaCompleta) => {
+        const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+        console.log(comunidadesVindasDoDato)
+        setComunidades(comunidadesVindasDoDato)
       })
   }, [])
 
@@ -178,8 +169,8 @@ export default function Home() {
               {comunidades.map((comunidade) => {
                 return (
                   <li>
-                    <a target="_blank" href={`${comunidade.content}`} key={comunidade.id}>
-                      <img src={comunidade.image} />
+                    <a target="_blank" href={`${comunidade.contentUrl}`} key={comunidade.id}>
+                      <img src={comunidade.imageUrl} />
                       <span>{comunidade.title}</span>
                     </a>
                   </li>
