@@ -5,8 +5,6 @@ import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet 
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 
 function ProfileSideBar(propriedades) {
-
-
   return (
     <Box as="aside">
       <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
@@ -80,7 +78,6 @@ export default function Home() {
       .then((response) => response.json())
       .then((respostaCompleta) => {
         const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
-        console.log(comunidadesVindasDoDato)
         setComunidades(comunidadesVindasDoDato)
       })
   }, [])
@@ -94,7 +91,7 @@ export default function Home() {
         </div>
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
-            <h1 className="title">Bem vindo(a)</h1>
+            <h1 className="title">Bem vindo(a), @{githubUser}</h1>
             <OrkutNostalgicIconSet slug={3} />
           </Box>
           <Box>
@@ -103,18 +100,32 @@ export default function Home() {
               e.preventDefault();
 
               const dadosInformados = new FormData(e.target);
-              const comunidadesAtualizadas = [];
               const comunidade = {
-                id: new Date().toISOString,
-                titulo: dadosInformados.get('title'),
-                image: dadosInformados.get('image'),
-                content: dadosInformados.get('content')
+                title: dadosInformados.get('title'),
+                imageUrl: dadosInformados.get('image'),
+                contentUrl: dadosInformados.get('content'),
+                creatorSlug: githubUser
               }
-              setComunidades(comunidadesAtualizadas, comunidade);
+
+              fetch('/api/communities', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(comunidade)
+              })
+                .then(async (response) => {
+                  const dados = await response.json();
+                  console.log(dados.registroCriado);
+                  const comunidade = dados.registroCriado;
+                  const comunidadesAtualizadas = [...comunidades, comunidade];
+                  setComunidades(comunidadesAtualizadas)
+                })
+              alert('Comunidade criada com sucesso!')
             }}>
               <div>
                 <input
-                  placeHolder="Qual vai ser o nome da sua comunidade?"
+                  placeholder="Qual vai ser o nome da sua comunidade?"
                   name="title"
                   aria-label="Qual vai ser o nome da sua comunidade?"
                   type="text"
@@ -122,7 +133,7 @@ export default function Home() {
               </div>
               <div>
                 <input
-                  placeHolder="Coloque uma URL para usarmos de capa"
+                  placeholder="Coloque uma URL para usarmos de capa"
                   name="image"
                   aria-label="Coloque uma URL para usarmos de capa"
                   type="text"
@@ -130,7 +141,7 @@ export default function Home() {
               </div>
               <div>
                 <input
-                  placeHolder="Coloque uma URL com o conteúdo da comunidade"
+                  placeholder="Coloque uma URL com o conteúdo da comunidade"
                   name="content"
                   aria-label="Coloque uma URL com o conteúdo da comunidade"
                   type="text"
@@ -163,10 +174,10 @@ export default function Home() {
           </ProfileRelationsBoxWrapper>
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
-              Comunidades
+              Comunidades ({comunidades.length})
             </h2>
             <ul>
-              {comunidades.map((comunidade) => {
+              {comunidades.slice(0, 6).map((comunidade) => {
                 return (
                   <li>
                     <a target="_blank" href={`${comunidade.contentUrl}`} key={comunidade.id}>
