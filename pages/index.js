@@ -80,7 +80,12 @@ export default function Home(props) {
       .then((response) => response.json())
       .then((respostaCompleta) => {
         const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
-        setComunidades(comunidadesVindasDoDato)
+        const comunidadesFiltradas = comunidadesVindasDoDato.filter((community) => {
+          if (community.creatorSlug === { githubUser }) {
+            return community;
+          }
+        });
+        setComunidades(comunidadesFiltradas)
       })
   }, [])
 
@@ -210,7 +215,7 @@ export async function getServerSideProps(context) {
   if (!isAuthenticated) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/login?',
         permanent: false,
       }
     }
