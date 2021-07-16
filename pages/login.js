@@ -49,9 +49,10 @@ export default function LoginScreen() {
                 setGithubUser(evento.target.value)
               }}
             />
-            {githubUser.length === 0
-              ? 'Preencha o campo'
-              : ''
+            {
+              githubUser.length === 0
+                ? 'Preencha o campo'
+                : ''
             }
             <button type="submit">
               Login
