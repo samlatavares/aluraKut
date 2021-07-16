@@ -37,6 +37,9 @@ export default function LoginScreen() {
                 })
                 router.push('/')
               })
+              .catch((error) => {
+                alert('Erro: ' + error);
+              })
           }}>
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
