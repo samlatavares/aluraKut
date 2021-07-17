@@ -29,7 +29,7 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.items.length})
             </h2>
       <ul>
-        {propriedades.items.slice(0, 6).map((seguidor) => {
+        {propriedades.itemsShow.map((seguidor) => {
           return (
             < li >
               <a target="_blank" href={`https://github.com/${seguidor.login}/`} key={seguidor.id}>
@@ -48,15 +48,26 @@ export default function Home(props) {
   const githubUser = props.githubUser;
   const pessoasFavoritas = ['yanpitangui', 'danyAmaral', 'jorgesoprani', 'juunegreiros', 'peas', 'omariosouto'];
   const [comunidades, setComunidades] = React.useState([]);
+  const [comunidadesExibir, setComunidadesExibir] = React.useState([]);
 
   const [seguidores, setSeguidores] = React.useState([]);
+  const [seguidoresExibir, setSeguidoresExibir] = React.useState([]);
   React.useEffect(function () {
     fetch(`https://api.github.com/users/${githubUser}/followers`)
       .then((respostaServidor) => {
         return respostaServidor.json();
       })
       .then((respostaCompleta) => {
+
+        let seguidoresExibir = [];
+        if (respostaCompleta != null && respostaCompleta.length > 6) {
+          seguidoresExibir = respostaCompleta.slice(0, 6);
+        } else {
+          seguidoresExibir = respostaCompleta;
+        }
+
         setSeguidores(respostaCompleta);
+        setSeguidoresExibir(seguidoresExibir);
       })
 
     fetch('https://graphql.datocms.com/', {
@@ -80,12 +91,19 @@ export default function Home(props) {
       .then((response) => response.json())
       .then((respostaCompleta) => {
         const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
-        const comunidadesFiltradas = comunidadesVindasDoDato.filter((community) => {
-          if (community.creatorSlug === { githubUser }) {
-            return community;
-          }
+        comunidadesVindasDoDato.filter((community) => {
+          return (community.creatorSlug === { githubUser })
         });
-        setComunidades(comunidadesFiltradas)
+
+        let comunidadesExibir = [];
+        if (comunidadesVindasDoDato != null && comunidadesVindasDoDato.length > 6) {
+          comunidadesExibir = comunidadesVindasDoDato.slice(0, 6);
+        } else {
+          comunidadesExibir = comunidadesVindasDoDato;
+        }
+
+        setComunidadesExibir(comunidadesExibir)
+        setComunidades(comunidadesVindasDoDato)
       })
   }, [])
 
@@ -161,7 +179,6 @@ export default function Home(props) {
           </Box>
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          <ProfileRelationsBox title="Seguidores" items={seguidores} />
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da Comunidade ({pessoasFavoritas.length})
@@ -184,7 +201,7 @@ export default function Home(props) {
               Comunidades ({comunidades.length})
             </h2>
             <ul>
-              {comunidades.slice(0, 6).map((comunidade) => {
+              {comunidadesExibir.map((comunidade) => {
                 return (
                   <li>
                     <a target="_blank" href={`${comunidade.contentUrl}`} key={comunidade.id}>
@@ -196,6 +213,7 @@ export default function Home(props) {
               })}
             </ul>
           </ProfileRelationsBoxWrapper>
+          <ProfileRelationsBox title="Seguidores" itemsShow={seguidoresExibir} items={seguidores} />
         </div>
       </MainGrid>
     </>
@@ -208,7 +226,7 @@ export async function getServerSideProps(ctx) {
   const decodedToken = jwt.decode(token);
   const githubUser = decodedToken?.githubUser;
 
-  if (!githubUser) {
+  if (decodedToken === undefined || decodedToken === null || !githubUser) {
     return {
       redirect: {
         destination: '/login',
