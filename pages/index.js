@@ -27,11 +27,11 @@ function ProfileRelationsBox(propriedades) {
     <ProfileRelationsBoxWrapper>
       <h2 className="smallTitle">
         {propriedades.title} ({propriedades.items.length})
-            </h2>
+      </h2>
       <ul>
         {propriedades.itemsShow.map((seguidor) => {
           return (
-            < li >
+            <li key={seguidor.id}>
               <a target="_blank" href={`https://github.com/${seguidor.login}/`} key={seguidor.id}>
                 <img src={`https://github.com/${seguidor.login}.png`} />
                 <span>{seguidor.login}</span>
@@ -186,7 +186,7 @@ export default function Home(props) {
             <ul>
               {pessoasFavoritas.map((pessoa) => {
                 return (
-                  <li>
+                  <li key={pessoa}>
                     <a target="_blank" href={`https://github.com/${pessoa}/`} key={pessoa}>
                       <img src={`https://github.com/${pessoa}.png`} />
                       <span>{pessoa}</span>
@@ -203,7 +203,7 @@ export default function Home(props) {
             <ul>
               {comunidadesExibir.map((comunidade) => {
                 return (
-                  <li>
+                  <li key={comunidade.id}>
                     <a target="_blank" href={`${comunidade.contentUrl}`} key={comunidade.id}>
                       <img src={comunidade.imageUrl} />
                       <span>{comunidade.title}</span>
