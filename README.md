@@ -1,5 +1,9 @@
 # aluraKut
 
+<p align="center">
+	<span>English</span> | <a href="https://github.com/samlatavares/aluraKut/blob/main/translations/pt-br/README.md">Português</a>
+</p>
+
 ## Used Technologies
 - React.js
 - Next.js
