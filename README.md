@@ -12,7 +12,7 @@
 - API consume
 
 ## What is this project?
-- This project was made during Alura's React Immersion and is the Alura version of Orkut.
+- This project was made during 2021 Alura's React Immersion and is the Alura version of Orkut.
 - The instructors from Alura made the initial project available during the Immersion and every participant should change the code, adding functionalities and also customizing the style.
 
 ## Working with this project
