@@ -14,3 +14,10 @@
 ## O que é esse projeto?
 - Esse projeto foi realizado durante a Imersão React da Alura em 2021 e é a versão da Alura do Orkut.
 - Os instrutores da Alura disponibilizaram o projeto inicial durante a Imersão e cada participante deveria alterar o código, adicionando funcionalidades e customizando o estilo.
+
+## Trabalhando com esse projeto
+- Para trabalhar com esse projeto, você pode clonar esse repositório.
+	- git clone https://github.com/samlatavares/aluraKut
+- Para abrir o projeto, você pode utilizar uma ferramenta como o <a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a>.
+- Você também precisará instalar o <a href="https://nextjs.org/docs" target="_blank">next.js</a> e o <a href="https://yarnpkg.com/getting-started" target="_blank">yarn</a> na sua máquina local. Você pode verificar os comandos configurados no arquivo package.json.
+- Você pode verificar a url local da aplicação no arquivo launch.json.
