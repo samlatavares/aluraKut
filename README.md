@@ -26,7 +26,7 @@
 - You can access the application <a href="https://alurakut-olive-delta.vercel.app/login" target="_blank">here</a>.
 - It'll open a page where you can fill the field "Usuário" with your Github's username.
 - The application will show a page that is very similar to the old social network Orkut by Google.
-	- You can check your Github followers, your photo and create and see Communities.
+- You can check your Github followers, your photo and create and see Communities.
 	
 ## Thank you!
 - Thank you to see this repository. It was made during my studies and I'm not going to do enhacements here.
