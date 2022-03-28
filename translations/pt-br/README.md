@@ -10,6 +10,7 @@
 - Yarn
 - Vercel
 - Consumo de API
+- DatoCMS
 
 ## O que é esse projeto?
 - Esse projeto foi realizado durante a Imersão React da Alura em 2021 e é a versão da Alura do Orkut.

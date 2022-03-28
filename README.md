@@ -10,6 +10,7 @@
 - Yarn
 - Vercel
 - API consume
+- DatoCMS
 
 ## What is this project?
 - This project was made during 2021 Alura's React Immersion and is the Alura version of Orkut.
