@@ -4,6 +4,10 @@
 	<span>English</span> | <a href="https://github.com/samlatavares/aluraKut/blob/main/translations/pt-br/README.md">Português</a>
 </p>
 
+<img id="image" src="images/alurakut_home.jpg" alt="Screenshot of the login page."></img>
+
+<img id="image" src="images/alurakut_main.jpg" alt="Screenshot of the main page, after login."></img>
+
 ## Used Technologies
 - React.js
 - Next.js
