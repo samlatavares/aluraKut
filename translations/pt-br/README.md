@@ -4,9 +4,9 @@
 	<a href="https://github.com/samlatavares/aluraKut/blob/main/README.md">English</a> | <span>Português</span>
 </p>
 
-<img id="image" src="images/alurakut_home.jpg" alt="Screenshot da página de login."></img>
+<img id="image_login" style="border-radius: 5px" src="images/alurakut_home.jpg" alt="Screenshot da página de login."></img>
 
-<img id="image" src="images/alurakut_main.jpg" alt="Screenshotda página principal, depois do login."></img>
+<img id="image_main" style="border-radius: 5px" src="images/alurakut_main.jpg" alt="Screenshot da página principal, depois do login."></img>
 
 ## Tecnologias Utilizadas
 - React.js
