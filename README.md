@@ -34,4 +34,4 @@
 - You can check your Github followers, your photo and create and see Communities.
 	
 ## Thank you!
-- Thank you to see this repository. It was made during my studies and I'm not going to do enhacements here.
+- Thank you for check this repository. It was made during my studies and I'm not going to do enhacements here.
